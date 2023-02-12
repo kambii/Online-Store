@@ -11,12 +11,14 @@ public class Product {
     private Long id;
     @Column
     private String productName;
+    private String description;
 
     public Product() {
     }
 
-    public Product(String productName) {
+    public Product(String productName, String description) {
         this.productName = productName;
+        this.description = description;
     }
 
     public Long getId() {
@@ -35,11 +37,20 @@ public class Product {
         this.productName = productName;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
     public String toString() {
         return "Product{" +
                 "id=" + id +
                 ", productName='" + productName + '\'' +
+                ", description='" + description + '\'' +
                 '}';
     }
 }

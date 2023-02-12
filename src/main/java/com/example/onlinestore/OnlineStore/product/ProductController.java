@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/product")
+@RequestMapping("/api/v1/auth")
 public class ProductController {
 
     private final ProductService productService;
@@ -18,7 +18,12 @@ public class ProductController {
 
     @GetMapping
     public List<Product> getAllProducts(){
-        return productService.findAll();
+        return productService.getAllProducts();
+    }
+
+    @GetMapping(path = "{productId}")
+    Product getProduct( @PathVariable("productId") Long id){
+        return productService.getProduct(id);
     }
 
     @PostMapping
@@ -26,7 +31,7 @@ public class ProductController {
         productService.addNewProduct(product);
     }
 
-    @DeleteMapping("{productId}")
+    @DeleteMapping( path = "{productId}")
     public void deleteProduct(@PathVariable("productId") Long productId){
         productService.deleteProduct(productId);
     }
@@ -34,7 +39,8 @@ public class ProductController {
     @PutMapping( path = "{productId}")
     public void updateProduct(
             @PathVariable("productId") Long productId,
-            @RequestParam(required = false) String productName){
-        productService.updateProduct(productId, productName);
+            @RequestParam(required = false) String productName,
+            @RequestParam(required = false) String description){
+        productService.updateProduct(productId, productName, description);
     }
 }
